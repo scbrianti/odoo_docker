@@ -3,8 +3,8 @@ MAINTAINER Le Filament <https://le-filament.com>
 
 ENV APT_DEPS='build-essential libldap2-dev libsasl2-dev python3-dev python3-wheel' \
     LANG=C.UTF-8 \
-    LC_ALL=C.UTF-8 \
-    PGDATABASE=odoo
+    LC_ALL=C.UTF-8
+    #PGDATABASE=odoo
 
 RUN set -x; \
         apt-get update &&\
@@ -49,7 +49,7 @@ RUN set -x; \
 # Install Odoo and remove not French translations and .git directory to limit amount of data used by container
 RUN set -x; \
         useradd --create-home --home-dir /opt/odoo --no-log-init odoo &&\
-        /bin/bash -c "mkdir -p /opt/odoo/{etc,odoo,additional_addons,private_addons,data,private}" &&\
+        /bin/bash -c "mkdir -p /opt/odoo/{etc,odoo,extra-addons}" &&\
         git clone -b 12.0 --depth 1 https://github.com/OCA/OCB.git /opt/odoo/odoo &&\
         rm -rf /opt/odoo/odoo/.git &&\
         chown -R odoo:odoo /opt/odoo
@@ -61,7 +61,7 @@ COPY ./odoo.conf /opt/odoo/etc/odoo.conf
 RUN chown odoo:odoo /opt/odoo/etc/odoo.conf
 
 # Mount /opt/odoo/data to allow restoring filestore
-VOLUME ["/opt/odoo/","/opt/odoo/etc","/opt/odoo/odoo","/opt/odoo/additional_addons","/opt/odoo/private_addons","/opt/odoo/data","/opt/odoo/private"]
+VOLUME ["/opt/odoo/etc","/opt/odoo/odoo","/opt/odoo/extra-addons"]
 
 # Expose Odoo services
 EXPOSE 8069
