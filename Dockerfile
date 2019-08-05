@@ -37,7 +37,7 @@ RUN set -x; \
         echo '7e35a63f9db14f93ec7feeb0fce76b30c08f2057 wkhtmltox.deb' | sha1sum -c - &&\
         apt-get update &&\
         apt-get install -y --no-install-recommends ./wkhtmltox.deb &&\
-        apt-get install -y --no-install-recommends postgresql-client &&\
+        apt-get install -y --no-install-recommends postgresql-client-10 &&\
         apt-get install -y --no-install-recommends ${APT_DEPS} &&\
         curl https://bootstrap.pypa.io/get-pip.py | python3 /dev/stdin &&\
         pip install -I -r https://raw.githubusercontent.com/OCA/OCB/12.0/requirements.txt &&\
@@ -61,7 +61,7 @@ COPY ./odoo.conf /opt/odoo/etc/odoo.conf
 RUN chown odoo:odoo /opt/odoo/etc/odoo.conf
 
 # Mount /opt/odoo/data to allow restoring filestore
-VOLUME ["/opt/odoo/"]
+VOLUME ["/opt/odoo/","/opt/odoo/etc","/opt/odoo/odoo","/opt/odoo/additional_addons","/opt/odoo/private_addons","/opt/odoo/data","/opt/odoo/private"]
 
 # Expose Odoo services
 EXPOSE 8069
