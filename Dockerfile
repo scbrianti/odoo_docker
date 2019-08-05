@@ -52,9 +52,8 @@ RUN set -x; \
         /bin/bash -c "mkdir -p /opt/odoo/{etc,odoo,additional_addons,private_addons,data,private}" &&\
         git clone -b 12.0 --depth 1 https://github.com/OCA/OCB.git /opt/odoo/odoo &&\
         rm -rf /opt/odoo/odoo/.git &&\
-        find /opt/odoo/odoo/addons/*/i18n/ /opt/odoo/odoo/odoo/addons/base/i18n/ -type f -not -name 'fr.po' -delete &&\
         chown -R odoo:odoo /opt/odoo
-
+        #find /opt/odoo/odoo/addons/*/i18n/ /opt/odoo/odoo/odoo/addons/base/i18n/ -type f -not -name 'fr.po' -delete &&\
 
 # Copy entrypoint script and Odoo configuration file
 COPY ./entrypoint.sh /
@@ -62,7 +61,7 @@ COPY ./odoo.conf /opt/odoo/etc/odoo.conf
 RUN chown odoo:odoo /opt/odoo/etc/odoo.conf
 
 # Mount /opt/odoo/data to allow restoring filestore
-VOLUME ["/opt/odoo/data/"]
+VOLUME ["/opt/odoo/"]
 
 # Expose Odoo services
 EXPOSE 8069
