@@ -61,7 +61,7 @@ COPY ./odoo.conf /opt/odoo/etc/odoo.conf
 RUN chown odoo:odoo /opt/odoo/etc/odoo.conf
 
 # Mount /opt/odoo/data to allow restoring filestore
-VOLUME ["/opt/odoo/etc","/opt/odoo/odoo","/opt/odoo/extra-addons"]
+VOLUME ["/opt/odoo/etc","/opt/odoo/extra-addons"]
 
 # Expose Odoo services
 EXPOSE 8069
