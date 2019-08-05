@@ -4,7 +4,7 @@ MAINTAINER Le Filament <https://le-filament.com>
 ENV APT_DEPS='build-essential libldap2-dev libsasl2-dev python3-dev python3-wheel' \
     LANG=C.UTF-8 \
     LC_ALL=C.UTF-8
-    #PGDATABASE=odoo
+    
 
 RUN set -x; \
         apt-get update &&\
@@ -72,14 +72,3 @@ USER odoo
 # Start
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["odoo"]
-
-# Metadata
-ARG VCS_REF
-ARG BUILD_DATE
-ARG VERSION
-LABEL org.label-schema.schema-version="$VERSION" \
-      org.label-schema.vendor=LeFilament \
-      org.label-schema.license=Apache-2.0 \
-      org.label-schema.build-date="$BUILD_DATE" \
-      org.label-schema.vcs-ref="$VCS_REF" \
-      org.label-schema.vcs-url="https://github.com/lefilament/docker-odoo"
